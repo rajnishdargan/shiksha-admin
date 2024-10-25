@@ -86,7 +86,12 @@ const AddNewCenters: React.FC<AddLearnerModalProps> = ({
   );
   const [stateDefaultValueForCenter, setStateDefaultValueForCenter] =
     useState<string>("");
-
+    const createCenterStatus = useSubmittedButtonStore(
+      (state: any) => state.createCenterStatus
+    );
+    const setCreateCenterStatus = useSubmittedButtonStore(
+      (state: any) => state.setCreateCenterStatus
+    );
   function removeHiddenFields(formResponse: any) {
     return {
       ...formResponse,
@@ -204,6 +209,7 @@ const AddNewCenters: React.FC<AddLearnerModalProps> = ({
         const cohortData = await createCohort(cohortDetails);
         if (cohortData) {
           showToastMessage(t("CENTERS.CENTER_CREATED_SUCCESSFULLY"), "success");
+          createCenterStatus? setCreateCenterStatus(false):setCreateCenterStatus(true)
           setOpenAddNewCohort(false);
           onClose();
           localStorage.removeItem("BMGSData");

@@ -112,7 +112,7 @@ const StateDetails = () => {
         <IconButton onClick={handleBackClick}>
           <ArrowBackIcon />
         </IconButton>
-        <Typography variant="h2">{card.state}</Typography>
+        <Typography variant="h2">{tStore.state}</Typography>
         <Box sx={{ display: "flex", gap: 3, alignItems: "center" }}>
         </Box>
       </Box>

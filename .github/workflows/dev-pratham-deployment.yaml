@@ -1,8 +1,6 @@
 name: Deployment on the Pratham-dev Frontend Server
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 jobs:
   PRATHAM-DEV-DEPLOYMENT:
     runs-on: ubuntu-latest

@@ -15,10 +15,12 @@ import {
   CohortTypes,
   Numbers,
   QueryKeys,
+  Role,
   SORT,
   Status,
   Storage,
 } from "@/utils/app.constant";
+
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ConfirmationModal from "@/components/ConfirmationModal";
@@ -34,7 +36,7 @@ import { showToastMessage } from "@/components/Toastify";
 import AddNewCenters from "@/components/AddNewCenters";
 import { getCenterTableData } from "@/data/tableColumns";
 import { Theme } from "@mui/system";
-import { firstLetterInUpperCase, mapFields } from "@/utils/Helper";
+import { firstLetterInUpperCase, mapFields , transformLabel} from "@/utils/Helper";
 import SimpleModal from "@/components/SimpleModal";
 import { IChangeEvent } from "@rjsf/core";
 import { RJSFSchema } from "@rjsf/utils";
@@ -138,6 +140,13 @@ const Center: React.FC = () => {
   );
   const setSubmittedButtonStatus = useSubmittedButtonStore(
     (state: any) => state.setSubmittedButtonStatus
+  );
+ 
+  const createCenterStatus = useSubmittedButtonStore(
+    (state: any) => state.createCenterStatus
+  );
+  const setCreateCenterStatus = useSubmittedButtonStore(
+    (state: any) => state.setCreateCenterStatus
   );
   const setAdminInformation = useSubmittedButtonStore(
     (state: any) => state.setAdminInformation
@@ -259,7 +268,7 @@ finalResult?.forEach((item: any, index: number) => {
             createdAt: item?.createdAt,
             updatedAt: item?.updatedAt,
             cohortId: item?.cohortId,
-            customFieldValues: cohortType[0] ? cohortType : "-",
+            customFieldValues: cohortType[0] ? transformLabel(cohortType) : "-",
             totalActiveMembers: counts?.totalActiveMembers,
             totalArchivedMembers: counts?.totalArchivedMembers,
           };
@@ -333,12 +342,12 @@ const response=  await fetchCohortMemberList(data);
     if (response?.result) {
       const userDetails = response.result.userDetails;
       const getActiveMembers = userDetails?.filter(
-        (member: any) => member?.status === Status.ACTIVE
+        (member: any) => member?.status === Status.ACTIVE && member?.role ===  Role.STUDENT
       );
       const totalActiveMembers = getActiveMembers?.length || 0;
 
       const getArchivedMembers = userDetails?.filter(
-        (member: any) => member?.status === Status.ARCHIVED
+        (member: any) => member?.status === Status.ARCHIVED && member?.role === Role.STUDENT
       );
       const totalArchivedMembers = getArchivedMembers?.length || 0;
 
@@ -372,9 +381,12 @@ const response=  await fetchCohortMemberList(data);
   };
 
   useEffect(() => {
-    fetchUserList();
+    if ((selectedBlockCode !== "") || (selectedDistrictCode !== "" && selectedBlockCode === "")  ){
+      fetchUserList();
+    }
+    // fetchUserList();
     getFormData();
-  }, [pageOffset, pageLimit, sortBy, filters, filters.states, filters.status]);
+  }, [pageOffset, pageLimit, sortBy, filters, filters.states, filters.status, createCenterStatus]);
 
   // handle functions
   const handleChange = (event: SelectChangeEvent<typeof pageSize>) => {
@@ -990,9 +1002,10 @@ const response=  await fetchCohortMemberList(data);
       
 
       if (urlData) {
-        router.push(
-          `learners?state=${urlData.stateCode}&district=${urlData.districtCode}&block=${urlData.blockCode}&status=${urlData.type}`
-        );
+      //  localStorage.setItem("selectedBlock", selectedBlock[0])
+        // router.push(
+        //   `learners?state=${urlData.stateCode}&district=${urlData.districtCode}&block=${urlData.blockCode}&status=${urlData.type}`
+        // );
       }
 
       console.log("urlData", urlData);

@@ -79,6 +79,10 @@ export enum CohortTypes {
 export enum FormValues {
   FEMALE = "FEMALE",
   MALE = "MALE",
+  REGULAR="REGULAR",
+  REMOTE="REMOTE"
+
+
 }
 
 export enum InputTypes {

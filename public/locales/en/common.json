@@ -229,9 +229,8 @@
     "LEARNERS_POSTREQISITE":"Learners Post-requisites",
     "NO_DATA_POST":"No data available for Learners Post-requisites",
     "FACILITATORS":"Facilitators Requisites",
-    "NO_DATA":"No data available for Facilitators Requisites"
-    
-
+    "NO_DATA":"No data available for Facilitators Requisites",
+    "DOWNLOAD_SAMPLE_CSV":"Download Sample CSV"
   },
   "MASTER": {
     "STATE": "States",
@@ -359,7 +358,10 @@
     "LANGUAGE": "Language",
     "SCIENCE": "Science",
     "SOCIAL_SCIENCE": "Social Science",
-    "LIFE_SKILLS": "Life Skills"
+    "LIFE_SKILLS": "Life Skills",
+    "BOARD":"Board",
+    "MEDIUM":"Medium",
+    "GRADE":"Grade"
   },
   "FORM_ERROR_MESSAGES": {
     "INVALID_INPUT": "Invalid Input.",
