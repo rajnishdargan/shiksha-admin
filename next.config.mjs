@@ -74,6 +74,10 @@ const nextConfig = {
         destination: `${process.env.WORKSPACE_BASE_URL}/api/proxy?path=/api/:path*`, // Forward them to proxy.js
       },
       {
+        source: "/workspace/content/assets/:path*", // Match any URL starting with /workspace/content/assets/
+        destination: `${process.env.WORKSPACE_BASE_URL}/assets/:path*`, // Serve the assets from the public folder
+      },
+      {
         source: "/assets/public/:path*",                                       // Match any URL starting with /assets/public/
         destination: `${process.env.WORKSPACE_BASE_URL}/assets/public/:path*`, // Forward to workspace proxy
       },
